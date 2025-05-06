@@ -1,0 +1,5 @@
+package com.bank.payment_microservice.service;
+
+public class PaymentService {
+
+}

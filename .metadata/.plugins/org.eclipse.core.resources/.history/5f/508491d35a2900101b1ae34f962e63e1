@@ -1,0 +1,5 @@
+package com.bank.account_microservices.config;
+
+public class JwtRequestFilter {
+
+}

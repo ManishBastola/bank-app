@@ -1,0 +1,46 @@
+package com.bank.login_service.controller;
+
+import com.bank.login_service.model.User;
+import com.bank.login_service.service.UserService;
+import com.bank.login_service.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/auth")
+@RequiredArgsConstructor
+public class UserController {
+
+    private final UserService userService;
+    private final JwtUtil jwtUtil;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        return ResponseEntity.ok(userService.register(user));
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        return userService.findByUsername(user.getUsername())
+                .filter(u -> new BCryptPasswordEncoder().matches(user.getPassword(), u.getPassword()))
+                .map(u -> {
+                    String token = jwtUtil.generateToken(u.getUsername(), u.getRole().name());
+                    return ResponseEntity.ok(Map.of(
+                            "token", token,
+                            "username", u.getUsername(),
+                            "role", u.getRole().name(),
+                            "message", "Login successful"
+                    ));
+                })
+                .orElse(ResponseEntity
+                        .status(401)
+                        .body(Map.of("message", "Invalid username or password")));
+    }
+}

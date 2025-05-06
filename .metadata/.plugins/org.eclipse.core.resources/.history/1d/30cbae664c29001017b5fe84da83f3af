@@ -1,0 +1,24 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: LOGIN-SERVICE
+  datasource:
+    url: jdbc:mysql://localhost:3306/login_db
+    username: root
+    password: Manish@123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+jwt:
+  secret: "aBcD1234eFgH5678iJkL9012MnOp3456QrSt7890UvWx1234Yz"

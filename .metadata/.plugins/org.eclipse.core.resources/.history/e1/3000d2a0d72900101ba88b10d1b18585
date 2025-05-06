@@ -1,0 +1,5 @@
+package com.bank.payment_microservice.filter;
+
+public class JwtRequestFilter {
+
+}

@@ -1,0 +1,35 @@
+package com.bank.login_service.controller;
+
+import com.bank.login_service.model.User;
+import com.bank.login_service.repository.UserRepository;
+import com.bank.login_service.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
+public class UserController {
+
+    private final UserRepository repo;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
+
+    @PostMapping("/register")
+    public String register(@RequestBody User user) {
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        repo.save(user);
+        return "User registered successfully!";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody User user) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        User dbUser = repo.findByUsername(user.getUsername()).get();
+        return jwtUtil.generateToken(dbUser.getUsername(), dbUser.getRole().name());
+    }
+
+}

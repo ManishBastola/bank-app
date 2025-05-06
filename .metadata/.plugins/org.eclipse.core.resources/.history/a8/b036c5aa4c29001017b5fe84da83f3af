@@ -1,0 +1,5 @@
+package com.bank.login_service.filter;
+
+public class JwtRequestFilter {
+
+}

@@ -1,0 +1,19 @@
+package com.bank.payment_microservice.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Transfer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long fromUserId;
+    private String toName;
+    private String toAccountNumber;
+    private Double amount;
+}

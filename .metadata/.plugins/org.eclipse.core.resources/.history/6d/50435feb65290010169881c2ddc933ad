@@ -1,0 +1,36 @@
+package com.bank.account_microservices.controller;
+
+import com.bank.account_microservices.model.Account;
+import com.bank.account_microservices.service.AccountService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/account")
+@RequiredArgsConstructor
+public class AccountController {
+
+    private final AccountService accountService;
+
+    @PostMapping("/create")
+    public Account create(@RequestBody Account account) {
+        return accountService.createAccount(account);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Account> getByUser(@PathVariable Long userId) {
+        return accountService.getAccountsByUserId(userId);
+    }
+
+    @GetMapping("/{id}")
+    public Account getById(@PathVariable Long id) {
+        return accountService.getAccountById(id).orElse(null);
+    }
+
+    @GetMapping("/{id}/balance")
+    public Double getBalance(@PathVariable Long id) {
+        return accountService.getBalance(id);
+    }
+}

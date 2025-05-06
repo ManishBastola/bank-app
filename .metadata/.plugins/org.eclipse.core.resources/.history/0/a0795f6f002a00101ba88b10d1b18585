@@ -1,0 +1,53 @@
+@RestController
+@RequestMapping("/auth")
+@RequiredArgsConstructor
+public class UserController {
+
+    private final UserService userService;
+    private final AuthenticationManager authManager;
+    private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
+
+    @PostMapping("/register")
+    public String register(@RequestBody User user) {
+        userService.register(user);
+        return "User registered";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody User user) {
+        authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+
+        User dbUser = userRepository.findByUsername(user.getUsername()).orElseThrow();
+        return jwtUtil.generateToken(dbUser.getUsername(), dbUser.getRole());
+    }
+
+    @GetMapping("/all-customers")
+    public List<String> getAllCustomerNames() {
+        return userRepository.findByRole(Role.CUSTOMER)
+                             .stream()
+                             .map(User::getUsername)
+                             .toList();
+    }
+    
+    @DeleteMapping("/delete-customer/{username}")
+    public ResponseEntity<String> deleteCustomer(@PathVariable String username) {
+        userRepository.deleteByUsername(username);
+        return ResponseEntity.ok("Customer deleted successfully");
+    }
+
+    @GetMapping("/all-employees")
+    public List<String> getAllEmployeeUsernames() {
+        return userRepository.findByRole(Role.EMPLOYEE)
+                             .stream()
+                             .map(User::getUsername)
+                             .toList();
+    }
+
+    // Newly added employee delete endpoint
+    @DeleteMapping("/delete-employee/{username}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable String username) {
+        userRepository.deleteByUsername(username);
+        return ResponseEntity.ok("Employee deleted successfully");
+    }
+}

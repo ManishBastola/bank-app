@@ -1,0 +1,5 @@
+package com.bank.payment_microservice.controller;
+
+public class PaymentController {
+
+}

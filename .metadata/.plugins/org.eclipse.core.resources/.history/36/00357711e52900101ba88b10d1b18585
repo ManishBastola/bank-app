@@ -1,0 +1,5 @@
+package com.bank.transfer_microservice.repository;
+
+public class TransferRepository {
+
+}

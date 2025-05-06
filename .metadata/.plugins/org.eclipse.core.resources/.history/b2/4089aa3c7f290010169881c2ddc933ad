@@ -1,0 +1,62 @@
+package com.bank.login_service.controller;
+
+import com.bank.login_service.model.Role;
+import com.bank.login_service.model.User;
+import com.bank.login_service.repository.UserRepository;
+import com.bank.login_service.service.UserService;
+import com.bank.login_service.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/auth")
+@RequiredArgsConstructor
+public class UserController {
+
+    private final UserService userService;
+    private final AuthenticationManager authManager;
+    private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
+
+    @PostMapping("/register")
+    public String register(@RequestBody User user) {
+        userService.register(user);
+        return "User registered";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody User user) {
+        authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+
+        User dbUser = userRepository.findByUsername(user.getUsername()).orElseThrow();
+        return jwtUtil.generateToken(dbUser.getUsername(), dbUser.getRole());
+    }
+ // In UserController.java
+    @GetMapping("/all-customers")
+    public List<String> getAllCustomerNames() {
+        return userRepository.findByRole(Role.CUSTOMER)
+                             .stream()
+                             .map(User::getUsername)
+                             .toList();
+    }
+    
+    @DeleteMapping("/delete-customer/{username}")
+    public ResponseEntity<String> deleteCustomer(@PathVariable String username) {
+        userRepository.deleteByUsername(username);
+        return ResponseEntity.ok("Customer deleted successfully");
+    }
+    
+    @GetMapping("/employees/usernames")
+    public ResponseEntity<List<User>> getEmployeeUsernames() {
+        List<User> employees = userService.getUsersByRole("EMPLOYEE");
+        return ResponseEntity.ok(employees);
+    }
+
+
+}

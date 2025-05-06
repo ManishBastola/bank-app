@@ -1,0 +1,7 @@
+package com.bank.transaction_microservice.model;
+
+public enum TransactionType {
+	DEPOSITE,
+	WITHDRAW,
+	TRANSFER
+}

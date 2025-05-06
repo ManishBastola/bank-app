@@ -1,0 +1,32 @@
+package com.bank.payment_microservice.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Payment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long userId;
+    private Long fromAccountId;
+
+    private String type; // "TRANSFER" or "BILL"
+
+    private String recipientName;           // For TRANSFER
+    private String recipientAccountNumber;  // For TRANSFER
+
+    @Enumerated(EnumType.STRING)
+    private BillType billType; // For BILL only: WIFI, POWER, RENT
+
+    private Double amount;
+
+    private LocalDateTime timestamp;
+}

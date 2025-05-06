@@ -1,0 +1,25 @@
+package com.bank.payment_microservice.service;
+
+import com.bank.payment_microservice.model.Payment;
+import com.bank.payment_microservice.repository.PaymentRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class PaymentService {
+
+    private final PaymentRepository paymentRepository;
+
+    public Payment makePayment(Payment payment) {
+        payment.setTimestamp(LocalDateTime.now());
+        return paymentRepository.save(payment);
+    }
+
+    public List<Payment> getUserPayments(Long userId) {
+        return paymentRepository.findByUserId(userId);
+    }
+}
