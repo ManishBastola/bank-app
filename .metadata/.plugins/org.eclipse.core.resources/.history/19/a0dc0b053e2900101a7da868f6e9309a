@@ -1,0 +1,31 @@
+package com.bank.login_service.service;
+
+import com.bank.login_service.dto.UserDTO;
+import com.bank.login_service.model.Role;
+import com.bank.login_service.model.User;
+import com.bank.login_service.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class UserService {
+
+    private final UserRepository userRepository;
+
+    public User register(UserDTO userDTO) {
+        User user = User.builder()
+                .username(userDTO.getUsername())
+                .password(userDTO.getPassword()) 
+                .role(Role.CUSTOMER)
+                .build();
+
+        return userRepository.save(user);
+    }
+
+    public User login(String username, String password) {
+        return userRepository.findByUsername(username)
+                .filter(u -> u.getPassword().equals(password))
+                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+    }
+}

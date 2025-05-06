@@ -1,0 +1,22 @@
+package com.bank.transaction_microservice.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Transaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String accountNumber;
+    private String type; // DEBIT or CREDIT
+    private Double amount;
+    private String timestamp;
+    private String description;
+}

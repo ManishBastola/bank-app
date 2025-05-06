@@ -1,0 +1,25 @@
+package com.bank.loan_microservice.controller;
+
+import com.bank.loan_microservice.model.Loan;
+import com.bank.loan_microservice.service.LoanService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/loans")
+@RequiredArgsConstructor
+public class LoanController {
+    private final LoanService loanService;
+
+    @PostMapping
+    public Loan saveLoan(@RequestBody Loan loan) {
+        return loanService.saveLoan(loan);
+    }
+
+    @GetMapping
+    public List<Loan> getAllLoans() {
+        return loanService.getAllLoans();
+    }
+}

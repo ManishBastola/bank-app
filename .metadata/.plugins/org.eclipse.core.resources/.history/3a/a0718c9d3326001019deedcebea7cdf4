@@ -1,0 +1,30 @@
+package com.bank.transaction_microservice.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.bank.transaction_microservice.model.Transaction;
+import com.bank.transaction_microservice.repository.TransactionRepository;
+
+@Service
+public class TransactionService {
+	 private final TransactionRepository transactionRepository; 
+	 
+	 public TransactionService(TransactionRepository transactionRepository) {
+		 this.transactionRepository = transactionRepository;
+	 }
+	 
+	 public Transaction saveTransaction(Transaction transaction) {
+		 return transactionRepository.save(transaction);
+	 }
+	 
+	 public List<Transaction> getAllTransaction(){
+		 return transactionRepository.findAll();
+	 }
+	 
+	 public Transaction getTransactionById(Long id) {
+		 return transactionRepository.findById(id).orElse(null);
+	 }
+
+}

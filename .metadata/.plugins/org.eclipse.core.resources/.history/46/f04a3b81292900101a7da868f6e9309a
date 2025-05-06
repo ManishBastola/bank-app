@@ -1,0 +1,24 @@
+package com.bank.loan_microservice.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Loan {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+   // private String loanType;
+    private Double amount;
+    private String customerName;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name= "loan_type")
+    private LoanType loanType;
+    
+}

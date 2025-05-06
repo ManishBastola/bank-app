@@ -1,0 +1,31 @@
+package com.bank.login_service.controller;
+
+import com.bank.login_service.dto.AuthResponse;
+import com.bank.login_service.dto.UserDTO;
+import com.bank.login_service.model.User;
+import com.bank.login_service.service.UserService;
+import com.bank.login_service.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+@RestController
+@RequestMapping("/auth")
+@RequiredArgsConstructor
+public class UserController {
+
+    private final UserService userService;
+    private final JwtUtil jwtUtil;
+
+    @PostMapping("/register")
+    public String register(@RequestBody UserDTO userDTO) {
+        userService.register(userDTO);
+        return "User registered successfully";
+    }
+
+    @PostMapping("/login")
+    public AuthResponse login(@RequestBody UserDTO userDTO) {
+        User user = userService.login(userDTO.getUsername(), userDTO.getPassword());
+        String token = jwtUtil.generateToken(user.getUsername(), user.getRole()); // ✅ Fix here
+        return new AuthResponse(token, user.getUsername(), user.getRole()); // ✅ Update DTO
+    }
+
+}

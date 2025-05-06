@@ -1,0 +1,24 @@
+package com.bank.login_service.util;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+
+@Component
+public class JwtUtil {
+
+    private final String secret = "MySuperSecretKeyForJWTGenerationThatIsVeryLongAndSecure1234567890!\n"
+    		+ "";
+    private final long expirationMs = 86400000; 
+
+    public String generateToken(String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
+                .signWith(SignatureAlgorithm.HS512, secret.getBytes())
+                .compact();
+    }
+}

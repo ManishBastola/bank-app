@@ -1,0 +1,5 @@
+package com.bank.transaction_microservice.util;
+
+public class JwtUtil {
+
+}

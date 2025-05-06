@@ -1,0 +1,5 @@
+package com.bank.creditcard_microservice.controller;
+
+public class CreditCardController {
+
+}

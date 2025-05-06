@@ -1,0 +1,31 @@
+package com.bank.transaction_microservice.controller;
+
+import com.bank.transaction_microservice.model.Transaction;
+import com.bank.transaction_microservice.service.TransactionService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/transactions")
+@RequiredArgsConstructor
+public class TransactionController {
+
+    private final TransactionService transactionService;
+
+    @PostMapping
+    public Transaction save(@RequestBody Transaction transaction) {
+        return transactionService.save(transaction);
+    }
+
+    @GetMapping("/{accountNumber}")
+    public List<Transaction> getByAccount(@PathVariable String accountNumber) {
+        return transactionService.getByAccount(accountNumber);
+    }
+
+    @GetMapping
+    public List<Transaction> getAll() {
+        return transactionService.getAll();
+    }
+}

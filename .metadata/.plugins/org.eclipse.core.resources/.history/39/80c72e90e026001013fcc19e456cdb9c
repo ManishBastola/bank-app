@@ -1,0 +1,5 @@
+package com.bank.creditcard_microservice.repository;
+
+public class CreditCardRepository {
+
+}

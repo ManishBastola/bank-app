@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: login-service
+          uri: lb://login-service
+          predicates:
+            - Path=/auth/**
+
+        - id: transaction-service
+          uri: lb://transaction-microservice
+          predicates:
+            - Path=/transaction/**
+
+        - id: creditcard-service
+          uri: lb://creditcard-microservice
+          predicates:
+            - Path=/creditcard/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

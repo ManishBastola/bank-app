@@ -1,0 +1,36 @@
+package com.bank.transaction_microservice.controller;
+
+import com.bank.transaction_microservice.model.Transaction;
+import com.bank.transaction_microservice.service.TransactionService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/transactions")
+@RequiredArgsConstructor
+public class TransactionController {
+
+    private final TransactionService service;
+
+    @PostMapping
+    public Transaction save(@RequestBody Transaction tx) {
+        return service.save(tx);
+    }
+
+    @GetMapping
+    public List<Transaction> getAll() {
+        return service.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Transaction getById(@PathVariable Long id) {
+        return service.findById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.deleteById(id);
+    }
+}

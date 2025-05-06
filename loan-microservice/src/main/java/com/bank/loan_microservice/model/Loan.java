@@ -1,0 +1,32 @@
+package com.bank.loan_microservice.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Loan {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long userId;               
+    private Double loanAmount;
+    private Double interestRate;
+    private Integer termInMonths;
+
+    @Enumerated(EnumType.STRING)
+    private LoanType loanType;
+
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    public void setCreatedAtNow() {
+        this.createdAt = LocalDateTime.now();
+    }
+}

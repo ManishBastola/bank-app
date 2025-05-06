@@ -1,0 +1,5 @@
+package com.bank.transaction_microservice.repository;
+
+public class TransactionRepository {
+
+}

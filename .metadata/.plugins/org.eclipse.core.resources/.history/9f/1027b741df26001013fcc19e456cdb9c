@@ -1,0 +1,32 @@
+package com.bank.transaction_microservice.service;
+
+import com.bank.transaction_microservice.model.Transaction;
+import com.bank.transaction_microservice.repository.TransactionRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class TransactionService {
+
+    private final TransactionRepository repository;
+
+    public Transaction save(Transaction transaction) {
+        return repository.save(transaction);
+    }
+
+    public List<Transaction> findAll() {
+        return repository.findAll();
+    }
+
+    public Transaction findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Transaction not found"));
+    }
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+}

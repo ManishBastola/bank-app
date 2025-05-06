@@ -1,0 +1,26 @@
+package com.bank.account_microservices.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Account {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long userId;
+
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
+
+    private String accountNumber;
+
+    private Double balance;
+}
