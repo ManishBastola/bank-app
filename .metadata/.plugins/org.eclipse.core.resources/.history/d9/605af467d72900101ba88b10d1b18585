@@ -1,5 +1,0 @@
-package com.bank.payment_microservice.config;
-
-public class SecurityConfig {
-
-}

@@ -1,5 +1,0 @@
-package com.bank.transaction_microservice.config;
-
-public class appConfig {
-
-}

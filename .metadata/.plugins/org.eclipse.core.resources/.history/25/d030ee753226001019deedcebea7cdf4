@@ -1,5 +1,0 @@
-package com.bank.transaction_microservice.dependency;
-
-public class TransactionRepository {
-
-}

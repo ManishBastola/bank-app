@@ -1,5 +1,0 @@
-package com.bank.account_microservices.service;
-
-public class AccountService {
-
-}

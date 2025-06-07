@@ -1,7 +1,0 @@
-package com.bank.login_service.security;
-
-@Configuration
-public class SecurityConfig {
-
-	@Bean
-}

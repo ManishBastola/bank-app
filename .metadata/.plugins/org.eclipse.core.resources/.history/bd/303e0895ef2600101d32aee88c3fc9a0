@@ -1,5 +1,0 @@
-package com.bank.api_gateway.config;
-
-public class GatewayCorsConfig {
-
-}

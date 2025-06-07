@@ -1,7 +1,0 @@
-package com.bank.payment_microservice.model;
-
-public enum Category {
-    WIFI,
-    POWER,
-    RENT
-}

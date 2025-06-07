@@ -1,5 +1,0 @@
-package com.bank.login_service.service;
-
-public class UserDetailServiceImpl {
-
-}

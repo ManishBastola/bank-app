@@ -1,5 +1,0 @@
-package com.bank.login_service.dto;
-
-public class UserDTO {
-
-}
