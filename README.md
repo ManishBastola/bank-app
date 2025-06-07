@@ -17,9 +17,6 @@ Customers can perform a wide range of banking activities online—such as accoun
 - **Loan Services**  
   Apply for and manage personal, auto, and home loans with an intuitive online process.
 
-- **Customer Support**  
-  Live chat, email support, and an FAQ section to assist customers.
-
 - **Security**  
   Advanced security measures including encryption, multi-factor authentication, and regular security audits.
 
@@ -89,10 +86,87 @@ The project follows the **Model-View-Controller (MVC)** architecture:
 - Java (JSP, Servlet)
 - Apache Tomcat Server
 - MySQL
-- node.js
+
+## How to Run
+
+### Prerequisites
+
+- Install **Java JDK 17** or higher.
+- Install **MySQL Server** and **MySQL Workbench**.
+- Install **Node.js** and **npm** for running the React frontend.
+- Install **Maven** (for building the Spring Boot project).
+- Install **Eclipse IDE** (or IntelliJ IDEA) for backend development.
+
+### Backend Setup (Spring Boot Microservices)
+
+1. Clone the project:
+
+    ```bash
+    git clone https://github.com/your-username/bank-management-web-project.git
+    cd bank-management-web-project
+    ```
+
+2. Import each microservice into Eclipse as a Maven project.
+
+3. Configure your **MySQL database**:
+
+    - Create a database `bank_management_db`.
+    - Update `application.yml` or `application.properties` files in each microservice to match your MySQL username and password.
+
+4. Build and run each microservice:
+
+    ```bash
+    ./mvnw clean install
+    ./mvnw spring-boot:run
+    ```
+
+    Example services to run:
+
+    - `login-service`
+    - `account-microservice`
+    - `loan-microservice`
+    - `api-gateway`
+    - `eureka-server`
+
+5. Make sure the **Eureka server** and **API Gateway** are running first.
+
+### Frontend Setup (ReactJS)
+
+1. Navigate to the `frontend` directory:
+
+    ```bash
+    cd frontend
+    ```
+
+2. Install dependencies:
+
+    ```bash
+    npm install
+    ```
+
+3. Run the React app:
+
+    ```bash
+    npm start
+    ```
+
+4. Open your browser and go to:
+
+    ```
+    http://localhost:3000
+    ```
+
+### Default Ports
+
+| Service                | Port |
+|------------------------|------|
+| Eureka Server          | 8761 |
+| API Gateway            | 8080 |
+| Login Service          | 8081 |
+| Account Microservice   | 8082 |
+| Loan Microservice      | 8084 |
+| React Frontend         | 3000 |
 
 ## Conclusion
 
 The Bank Management Web Project revolutionizes online banking by providing a secure, scalable, and user-friendly platform. It reduces reliance on manual banking operations and branch visits, improving both customer satisfaction and operational efficiency.
-
-
